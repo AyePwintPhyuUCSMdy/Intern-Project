@@ -1,0 +1,6 @@
+I have any question dealing with Check-out function.If user make check-out without making check-in. How control this problelm?
+
+
+
+
+check in time: 9:00 am checkout time: 5:00 pm . User make check-out function without making check-in function at 9:00am, so he redirect option check-in/check-out  and then make check-in 5:00pm and then he make check-out 5:15pm . How to solve this type of problem?

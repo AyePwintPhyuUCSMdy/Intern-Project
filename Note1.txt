@@ -1,0 +1,11 @@
+def check_in(user_id):
+    today = get_current_date()
+
+    # Check if the user already checked in today
+    if record_exists(user_id, date=today, check_in=True):
+        return "You have already checked in today."
+
+    # If not, save check-in time
+    current_time = get_current_time()
+    save_check_in_time(user_id, today, current_time)
+    return "Check-in successful at " + current_time
