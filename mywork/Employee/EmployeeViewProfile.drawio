@@ -1,0 +1,154 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.2.15 Chrome/134.0.6998.205 Electron/35.2.1 Safari/537.36" version="26.2.15">
+  <diagram name="Page-1" id="ni7h35yX1pw-kDGzT2Jb">
+    <mxGraphModel dx="856" dy="521" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="jJkULdnUMFqffoltL86N-1" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;fillColor=#E6E6E6;" vertex="1" parent="1">
+          <mxGeometry x="110" y="30" width="1024" height="768" as="geometry" />
+        </mxCell>
+        <mxCell id="jJkULdnUMFqffoltL86N-2" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1BA1E2;fontColor=#ffffff;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="110" y="30" width="1024" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="jJkULdnUMFqffoltL86N-3" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DAE8FC;strokeColor=none;shadow=0;" vertex="1" parent="1">
+          <mxGeometry x="110" y="90" width="160" height="710" as="geometry" />
+        </mxCell>
+        <mxCell id="jJkULdnUMFqffoltL86N-7" value="&lt;font style=&quot;font-size: 19px; color: rgb(255, 255, 255);&quot; face=&quot;Times New Roman&quot;&gt;Human Resource Management System&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="394" y="45" width="490" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="jJkULdnUMFqffoltL86N-8" value="&lt;font face=&quot;Times New Roman&quot; style=&quot;font-size: 16px; color: rgb(255, 255, 255);&quot;&gt;Attendance&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1BA1E2;strokeColor=none;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="161.5" width="140" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="jJkULdnUMFqffoltL86N-10" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=none;align=left;" vertex="1" parent="1">
+          <mxGeometry x="270" y="109" width="864" height="708" as="geometry" />
+        </mxCell>
+        <mxCell id="jJkULdnUMFqffoltL86N-11" value="" style="rounded=0;whiteSpace=wrap;html=1;shadow=1;fillColor=#DAE8FC;strokeColor=#006EAF;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="300" y="126" width="370" height="309" as="geometry" />
+        </mxCell>
+        <mxCell id="jJkULdnUMFqffoltL86N-16" value="&lt;font face=&quot;Times New Roman&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;&lt;b&gt;Name:&lt;/b&gt;&lt;/span&gt;&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="420" y="227" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="jJkULdnUMFqffoltL86N-17" value="&lt;font face=&quot;Times New Roman&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;&lt;b&gt;Gender:&lt;/b&gt;&lt;/span&gt;&lt;/font&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="417" y="263" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="jJkULdnUMFqffoltL86N-18" value="&lt;div&gt;&lt;font face=&quot;Times New Roman&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;&lt;b&gt;DateOfBirth:&lt;/b&gt;&lt;/span&gt;&lt;/font&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="417" y="284.5" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="jJkULdnUMFqffoltL86N-20" value="&lt;font face=&quot;Times New Roman&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;&lt;b&gt;Marital Status:Date:&lt;/b&gt;&lt;/span&gt;&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="417" y="345" width="184" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="jJkULdnUMFqffoltL86N-21" value="&lt;font face=&quot;Times New Roman&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;&lt;b&gt;NRC:&lt;/b&gt;&lt;/span&gt;&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="417" y="312.5" width="184" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="jJkULdnUMFqffoltL86N-15" value="&lt;font face=&quot;Times New Roman&quot; style=&quot;font-size: 16px;&quot;&gt;&lt;b&gt;EmployeeID:&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="417" y="196" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="jJkULdnUMFqffoltL86N-28" value="" style="whiteSpace=wrap;html=1;aspect=fixed;shadow=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="310" y="205" width="97" height="97" as="geometry" />
+        </mxCell>
+        <mxCell id="jJkULdnUMFqffoltL86N-32" value="" style="rounded=0;whiteSpace=wrap;html=1;shadow=0;strokeColor=#006EAF;fillColor=#DAE8FC;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="689" y="124" width="401" height="309" as="geometry" />
+        </mxCell>
+        <mxCell id="jJkULdnUMFqffoltL86N-35" value="&lt;h1&gt;&lt;font face=&quot;Times New Roman&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;Position:&lt;/span&gt;&lt;/font&gt;&lt;/h1&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="644.5" y="186" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="jJkULdnUMFqffoltL86N-37" value="Senior Developer" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Times New Roman;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="715" y="209" width="130" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="jJkULdnUMFqffoltL86N-41" value="&lt;h4&gt;Department:&lt;/h4&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Times New Roman;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="708" y="238" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="jJkULdnUMFqffoltL86N-44" value="IT Department" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Times New Roman;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="722" y="263" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="jJkULdnUMFqffoltL86N-45" value="&lt;h3&gt;&lt;font style=&quot;font-size: 16px;&quot; face=&quot;Times New Roman&quot;&gt;HireDate:&lt;/font&gt;&lt;/h3&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="723.5" y="293" width="65" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="jJkULdnUMFqffoltL86N-46" value="3/4/2020" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Times New Roman;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="721.5" y="316" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="jJkULdnUMFqffoltL86N-47" value="&lt;h3&gt;&lt;font face=&quot;Times New Roman&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;Resign Date:&lt;/span&gt;&lt;/font&gt;&lt;/h3&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="719" y="340" width="91" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="jJkULdnUMFqffoltL86N-48" value="N/A(Currently Employee)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Times New Roman;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="715" y="370" width="180" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="jJkULdnUMFqffoltL86N-52" value="&lt;font style=&quot;font-size: 19px;&quot; face=&quot;Times New Roman&quot;&gt;&lt;b style=&quot;&quot;&gt;Professional Information&lt;/b&gt;&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1ba1e2;strokeColor=#006EAF;shadow=1;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="689" y="123" width="401" height="61" as="geometry" />
+        </mxCell>
+        <mxCell id="jJkULdnUMFqffoltL86N-53" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#006EAF;fillColor=#DAE8FC;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="301" y="459" width="790" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="jJkULdnUMFqffoltL86N-54" value="&lt;font style=&quot;font-size: 19px;&quot; face=&quot;Times New Roman&quot;&gt;&lt;b&gt;Contact Information&lt;/b&gt;&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#006EAF;shadow=1;fillColor=#1ba1e2;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="301" y="459" width="790" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="jJkULdnUMFqffoltL86N-69" value="&lt;font style=&quot;font-size: 16px;&quot; face=&quot;Times New Roman&quot;&gt;&lt;b style=&quot;&quot;&gt;Personal PhoneNo:&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="330" y="530" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="jJkULdnUMFqffoltL86N-70" value="&lt;font style=&quot;font-size: 16px;&quot; face=&quot;Times New Roman&quot;&gt;09893282385&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="354" y="559" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="jJkULdnUMFqffoltL86N-73" value="&lt;font style=&quot;font-size: 16px;&quot; face=&quot;Times New Roman&quot;&gt;&lt;b style=&quot;&quot;&gt;&amp;nbsp;Business PhoneNo:&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="327" y="585" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="jJkULdnUMFqffoltL86N-74" value="&lt;font face=&quot;Times New Roman&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;09686809888&lt;/span&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="353" y="612" width="57" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="jJkULdnUMFqffoltL86N-76" value="&lt;b&gt;&lt;font style=&quot;font-size: 16px;&quot; face=&quot;Times New Roman&quot;&gt;Personal Email:&lt;/font&gt;&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="541" y="530" width="128" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="jJkULdnUMFqffoltL86N-77" value="&lt;font face=&quot;Times New Roman&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;jhonsmith@gmail.com&lt;/span&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="593" y="558" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="jJkULdnUMFqffoltL86N-79" value="&lt;font face=&quot;Times New Roman&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;&lt;b&gt;Business Email:&lt;/b&gt;&lt;/span&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="538" y="585" width="128" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="jJkULdnUMFqffoltL86N-80" value="&lt;font face=&quot;Times New Roman&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;jhonsmithemp001@gmail.com&lt;/span&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="617" y="613" width="61" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="jJkULdnUMFqffoltL86N-83" value="&lt;font face=&quot;Times New Roman&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;&lt;b&gt;Current Address:&lt;/b&gt;&lt;/span&gt;&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="828.5" y="530" width="128" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="jJkULdnUMFqffoltL86N-84" value="&lt;font face=&quot;Times New Roman&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;Yangon&lt;/span&gt;&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="831" y="555" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="jJkULdnUMFqffoltL86N-86" value="&lt;font face=&quot;Times New Roman&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;&lt;b&gt;Permanent Address:&lt;/b&gt;&lt;/span&gt;&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="831.5" y="582" width="142" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="jJkULdnUMFqffoltL86N-87" value="&lt;font face=&quot;Times New Roman&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;Mandalay&lt;/span&gt;&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="833" y="610" width="61" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="jJkULdnUMFqffoltL86N-88" value="&lt;font face=&quot;Times New Roman&quot; style=&quot;font-size: 16px; color: rgb(255, 255, 255);&quot;&gt;Request Leave&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1BA1E2;strokeColor=none;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="225" width="140" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="jJkULdnUMFqffoltL86N-89" value="&lt;font face=&quot;Times New Roman&quot; color=&quot;#ffffff&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;View Leave&lt;/span&gt;&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1BA1E2;strokeColor=none;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="287" width="140" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="jJkULdnUMFqffoltL86N-90" value="&lt;font style=&quot;font-size: 19px; color: rgb(255, 255, 255);&quot; face=&quot;Times New Roman&quot;&gt;Personal Information&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1BA1E2;strokeColor=#006EAF;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="122" width="370" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="jJkULdnUMFqffoltL86N-91" value="&lt;font face=&quot;Times New Roman&quot; color=&quot;#ffffff&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;View Profile&lt;/span&gt;&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1BA1E2;strokeColor=none;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="348" width="140" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="jJkULdnUMFqffoltL86N-99" value="&lt;font face=&quot;Times New Roman&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;Emp001&lt;/span&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="510" y="196" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="jJkULdnUMFqffoltL86N-100" value="&lt;font style=&quot;font-size: 16px;&quot; face=&quot;Times New Roman&quot;&gt;Male&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="463" y="257" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="jJkULdnUMFqffoltL86N-102" value="&lt;font style=&quot;font-size: 16px;&quot; face=&quot;Times New Roman&quot;&gt;2/5/1990&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="510" y="286" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="jJkULdnUMFqffoltL86N-103" value="&lt;font style=&quot;font-size: 16px;&quot; face=&quot;Times New Roman&quot;&gt;9/TATHANA(N)238219&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="510" y="312.5" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="jJkULdnUMFqffoltL86N-105" value="&lt;font style=&quot;font-size: 16px;&quot; face=&quot;Times New Roman&quot;&gt;Married&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="559" y="345" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="jJkULdnUMFqffoltL86N-110" value="&lt;font face=&quot;Times New Roman&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;JhonSmith&lt;/span&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="468" y="227" width="60" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
