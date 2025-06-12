@@ -1,0 +1,192 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using HRMSinternshipProject2025.Model;
+using HRMSinternshipProject2025.Controller;
+
+using System.Text.Json;
+
+
+namespace HRMSinternshipProject2025.View
+   
+{
+    public partial class AddNewEmployeeControl : UserControl
+
+          
+    {
+        private EmployeeController _controller;
+
+        public event EventHandler BrowseButtonClicked;
+        public event EventHandler GenerateButtonClicked;
+        public event EventHandler GeneratePasswordClicked;
+    
+
+    //Constructor
+    public AddNewEmployeeControl()
+        {
+            InitializeComponent();
+            btnBrowse.Click += btnBrowse_Click;
+            btnGenerateEmpNum.Click += btnGenerateEmpNum_Click;
+            btnGeneratePassword.Click += btnGeneratePassword_Click;
+            Load += AddNewEmployeeControl_Load;
+            _controller = new EmployeeController(this);
+
+        }
+        //Tab Order
+        private void SetTabOrder()
+        {
+            txtImagePath.TabIndex = 0;
+            txtEmployeeNumber.TabIndex = 1;
+            txtEmployeeName.TabIndex = 2;
+            groupBoxGender.TabIndex = 3;
+            dtpDateOfBirth.TabIndex = 4;
+            groupBoxMaritalStatus.TabIndex = 5;
+            cboNRCStateFormat.TabIndex = 6;
+            cboTownShip.TabIndex = 7;
+            txtNaing.TabIndex = 8;
+            txtNRCNumber.TabIndex = 9;
+            txtPrimaryPhone.TabIndex = 10;
+            txtSecondaryPhone.TabIndex = 11;
+            txtPersonalEmail.TabIndex = 12;
+            txtWorkEmail.TabIndex = 13;
+            txtCurrentAddress.TabIndex = 14;
+            txtPermanentAddress.TabIndex = 15;
+            cboDepartments.TabIndex = 16;
+            cboPositions.TabIndex = 17;
+            dtpHiredDate.TabIndex = 18;
+            dtpTerminationDate.TabIndex = 19;
+            txtQualification.TabIndex = 20;
+            txtPassword.TabIndex = 21;
+
+        }
+       
+        //Image Upload Function
+        private void btnBrowse_Click(object sender, EventArgs e)
+        {
+            BrowseButtonClicked?.Invoke(this, EventArgs.Empty);
+        }
+        public void SetImagePath(string path)
+        {
+            txtImagePath.Text = path;
+            if (!string.IsNullOrWhiteSpace(path))
+            {
+                lblImage.Visible = false;
+            }
+            else
+            {
+                lblImage.Visible = true;
+            }
+        }
+        public void SetProfilePicture(Image img)
+        {
+            picProfile.Image = img;
+        }
+
+        //Generate Password Function
+        private void btnGenerateEmpNum_Click(object sender, EventArgs e)
+        {
+            GenerateButtonClicked?.Invoke(this, EventArgs.Empty);
+        }
+        public void SetEmployeeNumber(string empNumber)
+        {
+            txtEmployeeNumber.Text = empNumber;
+        }
+        private void btnGeneratePassword_Click(object sender, EventArgs e)
+        {
+            GeneratePasswordClicked?.Invoke(this, EventArgs.Empty);
+
+        }
+        public void SetPassword(string password)
+        {
+            txtPassword.Text = password;
+
+        }
+        //Load AddNewEmployeeControl_load
+        private void AddNewEmployeeControl_Load(object sender, EventArgs e)
+        { 
+            SetTabOrder();
+            LoadNRCComboBox();
+        }
+
+        //private void LoadNRCComboBox()
+        //{
+        //    string filePath = Path.Combine(Application.StartupPath, "nrc_data.json");
+        //    var nrcList = _controller.LoadNRCDataFromJson(filePath);
+
+
+        //    cboNRCStateFormat.DataSource = nrcList;
+        //    cboNRCStateFormat.DisplayMember = "NRCText";
+        //    cboNRCStateFormat.ValueMember = "Id";
+        //}
+        private Dictionary<string, List<string>> _nrcData;
+
+        private void LoadNRCComboBox()
+        {
+            string filePath = Path.Combine(Application.StartupPath, "nrc_data.json");
+            _nrcData = _controller.LoadNRCDataFromJson(filePath);
+
+            cboNRCStateFormat.DataSource = new List<string>(_nrcData.Keys);
+            cboNRCStateFormat.SelectedIndex = -1;
+
+            cboNRCStateFormat.SelectedIndexChanged += ComboBoxNRCPrefix_SelectedIndexChanged;
+        }
+
+        //private void ComboBoxNRCPrefix_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    string selectedPrefix = cboNRCStateFormat.SelectedItem as string;
+
+        //    if (selectedPrefix != null && _nrcData.ContainsKey(selectedPrefix))
+        //    {
+        //        cboTownShip.DataSource = _nrcData[selectedPrefix];
+        //        cboTownShip.SelectedIndex = -1;
+        //    }
+        //    else
+        //    {
+        //        cboTownShip.DataSource = null;
+        //    }
+        //    // Select the first prefix explicitly
+
+        //}
+        private void ComboBoxNRCPrefix_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selectedPrefix = cboNRCStateFormat.SelectedItem as string;
+
+            if (!string.IsNullOrEmpty(selectedPrefix) && _nrcData.ContainsKey(selectedPrefix))
+            {
+                var values = _nrcData[selectedPrefix];
+                cboTownShip.DataSource = values;
+
+                if (values.Count > 0)
+                {
+                    cboTownShip.SelectedIndex = 0;
+                }
+            }
+            else
+            {
+                cboTownShip.DataSource = null;
+            }
+        }
+
+
+
+        private void btnGeneratePassword_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+    }
+}
+
+
+

@@ -1,0 +1,286 @@
+using System;
+using System.Windows.Forms;
+using HRMSinternshipProject2025.Model;
+using HRMSinternshipProject2025.View;
+using System.Drawing;
+using HRMSinternshipProject2025.Database;
+using Npgsql;
+using System.Linq;
+using System.Collections.Generic;
+using Newtonsoft.Json;
+using System.IO;
+
+namespace HRMSinternshipProject2025.Controller
+{
+    public class EmployeeController
+    {
+        private AddNewEmployeeControl _view;
+        private Employee _model;
+       
+        public EmployeeController(AddNewEmployeeControl view)//constructor 
+        {
+            _view = view;
+            _model = new Employee();
+            
+            _view.BrowseButtonClicked += OnBrowseButtonClicked;
+            _view.GenerateButtonClicked += OnGenerateButtonClicked;
+            _view.GeneratePasswordClicked += OnGeneratePasswordClicked;
+            _view.DepartmentSelectionChanged += OnDepartmentChanged;
+            _view.NRCStateFormatChanged += OnNRCStateFormatChanged;
+
+            LoadDepartmentsFromDatabase();
+            LoadNRCStateFormatFromDatabase();
+
+        }
+        //NRC stateFormat
+        private void LoadNRCStateFormatFromDatabase()
+        {
+            var stateFormats = new List<string>();
+
+            using (var conn = DatabaseHelper.GetConnection())
+            {
+                conn.Open();
+
+                string query = "SELECT distinct nrc_stateformat FROM tbl_nrc";
+                using (var cmd = new NpgsqlCommand(query, conn))
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        stateFormats.Add(reader.GetString(0));
+                    }
+                }
+            }
+             var sortedFormats = stateFormats
+                .Where(s => int.TryParse(s, out _))
+                .Select(s => new { Original = s, Number = int.Parse(s) })
+                .OrderBy(x => x.Number)
+                .Select(x => x.Original)
+                .ToList();
+            _view.LoadNRCStateFormats(sortedFormats);
+        }
+        private void OnNRCStateFormatChanged(object sender, EventArgs e)
+        {
+            string selectedState = _view.SelectedNRCStateFormat;
+            if (!string.IsNullOrEmpty(selectedState))
+            {
+                LoadTownshipsForStateFormat(selectedState);
+            }
+        }
+        private void LoadTownshipsForStateFormat(string stateFormat)
+        {
+            var townships = new List<string>();
+
+            using (var conn = DatabaseHelper.GetConnection())
+            {
+                conn.Open();
+                string query = "SELECT township_code FROM tbl_nrc WHERE nrc_stateformat = @stateFormat";
+
+                using (var cmd = new NpgsqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@stateFormat", stateFormat);
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            townships.Add(reader.GetString(0));
+                        }
+                    }
+                }
+            }
+
+            _view.LoadTownshipCodes(townships);
+        }
+        //upload image function
+        private void OnBrowseButtonClicked(object sender, EventArgs e)
+        {
+
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Image Files (*.png;*.jpg)|*.png;*.jpg";
+
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                _model.profilePicture = ofd.FileName;
+                _view.SetImagePath(ofd.FileName);
+                _view.SetProfilePicture(Image.FromFile(ofd.FileName));
+            }
+        }
+
+        //database Connection for GenerateEmployeeNumber
+        private int GetLastEmployeeNumberFromDatabase()
+        {
+            int lastEmployeeNumber = 0;
+
+            using (var conn = DatabaseHelper.GetConnection())
+            {
+                conn.Open();
+                string query = "SELECT MAX(employee_number) FROM tbl_employee";
+
+                using (var cmd = new NpgsqlCommand(query, conn))
+                {
+                    var result = cmd.ExecuteScalar();
+                    if (result != DBNull.Value && result != null)
+                    {
+                        lastEmployeeNumber = Convert.ToInt32(result);
+                    }
+                }
+            }
+
+            return lastEmployeeNumber;
+        }
+        //generate employeenumber function
+        private void OnGenerateButtonClicked(object sender, EventArgs e)
+        {
+
+            int lastEmployeeNumber = GetLastEmployeeNumberFromDatabase();
+
+            int newEmployeeNumber = lastEmployeeNumber + 1;
+
+
+            _view.SetEmployeeNumber(newEmployeeNumber.ToString());
+        }
+        //generate password function
+        private void OnGeneratePasswordClicked(object sender, EventArgs e)
+        {
+            string password;
+
+            do
+            {
+                password = GenerateRandomPassword();
+
+                if (IsPasswordExistsInDatabase(password))
+                {
+                    var result = MessageBox.Show(
+                        "Password already exists. Do you want to replace it with a new one?",
+                        "Duplicate Password",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Warning);
+
+                    if (result == DialogResult.No)
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        return;
+                    }
+
+                }
+                else
+                {
+                    break;
+                }
+
+            } while (true);
+
+            _view.SetPassword(password);
+        }
+        //Check password in database
+        private bool IsPasswordExistsInDatabase(string password)
+        {
+            using (var conn = Database.DatabaseHelper.GetConnection())
+            {
+                conn.Open();
+                string query = "SELECT COUNT(*) FROM tbl_employee WHERE password = @password";
+
+                using (var cmd = new NpgsqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("password", password);
+                    var result = cmd.ExecuteScalar();
+                    return Convert.ToInt32(result) > 0;
+                }
+            }
+        }
+
+        private string GenerateRandomPassword()
+        {
+            const string upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            const string lower = "abcdefghijklmnopqrstuvwxyz";
+            const string digits = "0123456789";
+            const string special = "!@#$%^&*";
+
+            string allChars = upper + lower + digits + special;
+            Random rnd = new Random();
+
+            int length = rnd.Next(8, 13);
+
+            return new string(Enumerable.Range(0, length)
+                .Select(_ => allChars[rnd.Next(allChars.Length)]).ToArray());
+            //return "pass789";
+        }
+
+        //
+        //NRC 
+
+        //Department and Postion
+        private void LoadDepartmentsFromDatabase()
+        {
+            var departmentNames = new List<string>();
+
+            using (var conn = DatabaseHelper.GetConnection())
+            {
+                conn.Open();
+                string query = "SELECT department_name FROM tbl_department";
+
+                using (var cmd = new NpgsqlCommand(query, conn))
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        departmentNames.Add(reader.GetString(0));
+                    }
+                }
+            }
+
+            _view.LoadDepartments(departmentNames);
+        }
+
+        private void OnDepartmentChanged(object sender, EventArgs e)
+        {
+            string selectedDept = _view.SelectedDepartment;
+            if (!string.IsNullOrEmpty(selectedDept))
+            {
+                LoadPositionsForDepartment(selectedDept);
+
+            }
+        }
+
+        private void LoadPositionsForDepartment(string departmentName)
+        {
+            var positions = new List<string>();
+
+            using (var conn = DatabaseHelper.GetConnection())
+            {
+                conn.Open();
+                string query = @"
+                SELECT p.position_name
+                FROM tbl_position p
+                INNER JOIN tbl_department d ON p.department_id = d.department_id
+                WHERE d.department_name = @deptName";
+
+                using (var cmd = new NpgsqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@deptName", departmentName);
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            positions.Add(reader.GetString(0));
+                        }
+                    }
+                }
+            }
+
+            _view.LoadPositions(positions);
+        }
+
+        
+       
+
+
+    }
+
+    }
+    
+

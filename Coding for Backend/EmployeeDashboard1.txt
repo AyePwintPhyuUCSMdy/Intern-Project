@@ -1,0 +1,132 @@
+using System;
+using System.Drawing;
+using System.Windows.Forms;
+using HRMSinternshipProject2025.Controller;
+using HRMSinternshipProject2025.Database;
+using HRMSinternshipProject2025.Model;
+using HRMSinternshipProject2025.View;
+using Npgsql;
+
+
+namespace Dashboard
+{
+    public partial class employeeDashboard : Form
+    {
+        private AddNewEmployeeControl _addNewEmployeeControl;
+        private EmployeeController _employeeController;
+        //private NrcController _nrcController;
+        public employeeDashboard()
+        {
+            InitializeComponent();
+            //Database connection
+            _addNewEmployeeControl = new AddNewEmployeeControl();
+            _employeeController = new EmployeeController(_addNewEmployeeControl);
+            //_nrcController = new NrcController(_addNewEmployeeControl); ;
+            this.CenterToScreen();
+
+
+        }
+
+           
+        
+      
+        //btn close  
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        //btn minimize   
+        private void btnMinimize_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+        //btn maximize  
+        private void btnMaximize_Click(object sender, EventArgs e)
+        {
+            if (this.WindowState == FormWindowState.Normal)
+                this.WindowState = FormWindowState.Maximized;
+            else
+                this.WindowState = FormWindowState.Normal;
+        }
+
+
+        //split container  
+        private void splitContainer1_Panel1_Paint(object sender, PaintEventArgs e)
+        {
+            // It might be empty or have some code  
+           
+        }
+
+        private void splitContainer1_Panel2_Paint(object sender, PaintEventArgs e)
+        {
+           
+          
+        }
+
+        private void LoadAddNewEmployeeForm(UserControl uc)
+        {
+            splitContainer1.Panel2.Controls.Clear();
+            uc.Dock = DockStyle.Fill;
+            if (uc is AddNewEmployeeControl)
+            {
+               
+                splitContainer1.Panel2.BackColor = Color.White;
+                splitContainer1.Panel2.Dock = DockStyle.None;
+                uc.Width = 1024;
+                uc.Height = 710;
+
+                // Center the control
+                int x = (splitContainer1.Panel2.Width - uc.Width) / 2;
+                int y = (splitContainer1.Panel2.Height - uc.Height) / 2;
+                uc.Location = new Point(Math.Max(0, x), Math.Max(0, y));
+                uc.Anchor = AnchorStyles.None;
+            }
+            else
+            {
+                splitContainer1.Panel2.Dock = DockStyle.Fill;
+            }
+            splitContainer1.Panel2.Controls.Add(uc);
+        }
+
+       
+        private void btnAttendance_Click(object sender, EventArgs e)
+        {
+           
+
+        }
+
+        private void btnRequestLeave_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void btnViewLeave_Click(object sender, EventArgs e)
+        {
+          
+        }
+
+        private void btnViewProfile_Click(object sender, EventArgs e)
+        {
+
+            LoadAddNewEmployeeForm(_addNewEmployeeControl);
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void testBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+    }
+}

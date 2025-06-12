@@ -1,0 +1,179 @@
+using System;
+using System.Windows.Forms;
+using HRMSinternshipProject2025.Model;
+using HRMSinternshipProject2025.View;
+using System.Drawing;
+using HRMSinternshipProject2025.Database;
+using Npgsql;
+using System.Linq;
+using System.Collections.Generic;
+//using Newtonsoft.Json;
+using System.IO;
+using System.Text.Json;
+using HRMSinternshipProject2025.Model;
+
+namespace HRMSinternshipProject2025.Controller
+{
+    public class EmployeeController
+    {
+        private AddNewEmployeeControl _view;
+        private Employee _model;
+       
+        public EmployeeController(AddNewEmployeeControl view)//constructor 
+        {
+            _view = view;
+            _model = new Employee();
+            
+            _view.BrowseButtonClicked += OnBrowseButtonClicked;
+            _view.GenerateButtonClicked += OnGenerateButtonClicked;
+            _view.GeneratePasswordClicked += OnGeneratePasswordClicked;
+        }
+        //upload image function
+        private void OnBrowseButtonClicked(object sender, EventArgs e)
+        {
+
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Image Files (*.png;*.jpg)|*.png;*.jpg";
+
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                _model.profilePicture = ofd.FileName;
+                _view.SetImagePath(ofd.FileName);
+                _view.SetProfilePicture(Image.FromFile(ofd.FileName));
+            }
+        }
+        //database Connection for GenerateEmployeeNumber
+        private int GetLastEmployeeNumberFromDatabase()
+        {
+            int lastEmployeeNumber = 0;
+
+            using (var conn = DatabaseHelper.GetConnection())
+            {
+                conn.Open();
+                string query = "SELECT MAX(employee_number) FROM tbl_employee";
+
+                using (var cmd = new NpgsqlCommand(query, conn))
+                {
+                    var result = cmd.ExecuteScalar();
+                    if (result != DBNull.Value && result != null)
+                    {
+                        lastEmployeeNumber = Convert.ToInt32(result);
+                    }
+                }
+            }
+
+            return lastEmployeeNumber;
+        }
+        //generate employeenumber function
+        private void OnGenerateButtonClicked(object sender, EventArgs e)
+        {
+
+            int lastEmployeeNumber = GetLastEmployeeNumberFromDatabase();
+
+            int newEmployeeNumber = lastEmployeeNumber + 1;
+
+
+            _view.SetEmployeeNumber(newEmployeeNumber.ToString());
+        }
+        //generate password function
+        private void OnGeneratePasswordClicked(object sender, EventArgs e)
+        {
+            string password;
+
+            do
+            {
+                password = GenerateRandomPassword();
+
+                if (IsPasswordExistsInDatabase(password))
+                {
+                    var result = MessageBox.Show(
+                        "Password already exists. Do you want to replace it with a new one?",
+                        "Duplicate Password",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Warning);
+
+                    if (result == DialogResult.No)
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        return;
+                    }
+
+                }
+                else
+                {
+                    break;
+                }
+
+            } while (true);
+
+            _view.SetPassword(password);
+        }
+        //Check password in database
+        private bool IsPasswordExistsInDatabase(string password)
+        {
+            using (var conn = Database.DatabaseHelper.GetConnection())
+            {
+                conn.Open();
+                string query = "SELECT COUNT(*) FROM tbl_employee WHERE password = @password";
+
+                using (var cmd = new NpgsqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("password", password);
+                    var result = cmd.ExecuteScalar();
+                    return Convert.ToInt32(result) > 0;
+                }
+            }
+        }
+
+        private string GenerateRandomPassword()
+        {
+            const string upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            const string lower = "abcdefghijklmnopqrstuvwxyz";
+            const string digits = "0123456789";
+            const string special = "!@#$%^&*";
+
+            string allChars = upper + lower + digits + special;
+            Random rnd = new Random();
+
+            int length = rnd.Next(8, 13);
+
+            return new string(Enumerable.Range(0, length)
+                .Select(_ => allChars[rnd.Next(allChars.Length)]).ToArray());
+            //return "pass789";
+        }
+        public Dictionary<string, List<string>> LoadNRCDataFromJson(string filePath)
+        {
+            try
+            {
+                if (!File.Exists(filePath))
+                {
+                    MessageBox.Show("NRC JSON file not found.");
+                    return new Dictionary<string, List<string>>();
+                }
+
+                string json = File.ReadAllText(filePath);
+                var data = JsonSerializer.Deserialize<Dictionary<string, List<string>>>(json);
+                return data ?? new Dictionary<string, List<string>>();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to load NRC data: " + ex.Message);
+                return new Dictionary<string, List<string>>();
+            }
+        }
+
+
+
+    }
+
+
+}
+
+        
+       
+
+
+  
