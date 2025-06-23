@@ -1,0 +1,495 @@
+
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Text;
+using System.IO;
+using System.Net.NetworkInformation;
+using System.Windows.Forms;
+using HRMSinternshipProject2025.Controller;
+using HRMSinternshipProject2025.ControllerHelper;
+
+namespace HRMSinternshipProject2025.View
+
+{
+    public partial class AddNewEmployeeControl : UserControl
+    {
+        private EmployeeController _controller;
+        public event EventHandler GeneratePasswordClicked;
+        private Image _placeholderImage;
+        
+
+
+        //Constructor
+        public AddNewEmployeeControl()
+        {
+            InitializeComponent();
+            btnGeneratePassword.Click += BtnGeneratePassword_Click;
+            Load += AddNewEmployeeControl_Load;
+            _controller = new EmployeeController(this);
+
+        }
+        //Tab Order
+        private void SetTabOrder()
+        {
+            txtImagePath.TabIndex = 0;
+            txtEmployeeId.TabIndex = 1;
+            txtEmployeeName.TabIndex = 2;
+            groupBoxGender.TabIndex = 3;
+            dtpDateOfBirth.TabIndex = 4;
+            groupBoxMaritalStatus.TabIndex = 5;
+            cboNRCStateFormat.TabIndex = 6;
+            cboNRCTownShipCode.TabIndex = 7;
+            txtNaing.TabIndex = 8;
+            txtNRCNumber.TabIndex = 9;
+            txtPrimaryPhone.TabIndex = 10;
+            txtSecondaryPhone.TabIndex = 11;
+            txtPersonalEmail.TabIndex = 12;
+            txtWorkEmail.TabIndex = 13;
+            txtCurrentAddress.TabIndex = 14;
+            txtPermanentAddress.TabIndex = 15;
+            cboDepartments.TabIndex = 16;
+            cboPositions.TabIndex = 17;
+            dtpHiredDate.TabIndex = 18;
+            dtpHiredDate.TabIndex = 19;
+            txtPassword.TabIndex = 21;
+
+        }
+
+        //BtnGeneratePassword Function
+        private void BtnGeneratePassword_Click(object sender, EventArgs e)
+        {
+            GeneratePasswordClicked?.Invoke(this, EventArgs.Empty);
+        }
+        public void SetPassword(string password)
+        {
+            txtPassword.Text = password;
+        }
+
+        // AddNewEmployeeControl_load Function
+        private void AddNewEmployeeControl_Load(object sender, EventArgs e)
+        {
+            SetTabOrder();
+            int nextEmpNum = _controller.GetNextEmployeeNumber();
+            SetEmployeeNumber(nextEmpNum.ToString());
+            _placeholderImage = pictureboxEmployeeProfileImage.Image;
+            LoadNRCComboBox();
+            LoadDepartments();
+            ConfigureDateOfBirthPicker();
+        }
+        //Control datetimepicker
+        private void ConfigureDateOfBirthPicker()
+        {
+            dtpDateOfBirth.MaxDate = DateTime.Today;
+            dtpDateOfBirth.MinDate = DateTime.Today.AddYears(-100);
+            dtpDateOfBirth.Value = DateTime.Today.AddYears(-25);
+            dtpDateOfBirth.Format = DateTimePickerFormat.Custom;
+            dtpDateOfBirth.CustomFormat = "dd-MM-yyyy";
+            dtpHiredDate.MaxDate = DateTime.Today;
+            dtpHiredDate.Format = DateTimePickerFormat.Custom;
+            dtpHiredDate.CustomFormat = "dd-MM-yyyy";
+        }
+
+        //LoadNRCComboBox Function
+
+        private Dictionary<string, List<string>> _nrcData;
+        private void LoadNRCComboBox()
+        {
+            string filePath = Path.Combine(Application.StartupPath, "nrc_data.json");
+            _nrcData = _controller.LoadNRCDataFromJson(filePath);
+            cboNRCStateFormat.DataSource = new List<string>(_nrcData.Keys);
+            cboNRCStateFormat.SelectedIndex = 0;
+            cboNRCStateFormat.SelectedIndexChanged += CBONRCStateFormat_SelectedIndexChanged;
+        }
+        //User selecte comboBox
+        private void CBONRCStateFormat_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selectedNRCStateFormat = cboNRCStateFormat.SelectedItem as string;
+
+            if (!string.IsNullOrEmpty(selectedNRCStateFormat) && _nrcData.ContainsKey(selectedNRCStateFormat))
+            {
+                var nrcValues = _nrcData[selectedNRCStateFormat];
+                cboNRCTownShipCode.DataSource = nrcValues;
+                if (nrcValues.Count > 0)
+                {
+                    cboNRCTownShipCode.SelectedIndex = 0;
+                }
+            }
+            else
+            {
+                cboNRCTownShipCode.DataSource = null;
+            }
+        }
+
+        //LoadDepartments Function
+        private void LoadDepartments()
+        {
+            var departments = _controller.GetAllDepartments();
+            cboDepartments.DataSource = departments;
+            cboDepartments.DisplayMember = "Value";
+            cboDepartments.ValueMember = "Key";
+            cboDepartments.SelectedIndexChanged += CBODepartments_SelectedIndexChanged;
+        }
+        private void CBODepartments_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cboDepartments.SelectedValue is int departmentId)
+            {
+                var positions = _controller.GetEmployeePositionsByDepartmentId(departmentId);
+                cboPositions.DataSource = positions;
+                cboPositions.DisplayMember = "Value";
+                cboPositions.ValueMember = "Key";
+                if (positions.Count > 0)
+                    cboPositions.SelectedIndex = 0;
+            }
+        }
+        //SetEmployeeNumber Function
+        public void SetEmployeeNumber(string employeeNumber)
+        {
+            txtEmployeeId.Text = employeeNumber;
+        }
+
+        //BtnAdd Function
+        private void btnAdd_Click(object sender, EventArgs e)
+
+        {
+            _controller.AddEmployee();
+
+        }
+
+
+
+        private void txtImagePath_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtEmployeeId_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnBrowse_Click_1(object sender, EventArgs e)
+        {
+            using (OpenFileDialog ofd = new OpenFileDialog())
+            {
+                ofd.Filter = "Image Files (*.jpg;*.png;*.jpeg)|*.jpg;*.png;*.jpeg";
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    pictureboxEmployeeProfileImage.Image = Image.FromFile(ofd.FileName);
+                    pictureboxEmployeeProfileImage.Tag = ofd.FileName;
+                    txtImagePath.Text = ofd.FileName;
+                }
+            }
+        }
+
+        private void dtpTerminationDate_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cboNRCTownShipCode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtImagePath_TextChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtEmployeeName_TextChanged(object sender, EventArgs e)
+        {
+            string error = Validation.ValidateEmployeeName(txtEmployeeName.Text.Trim());
+
+            if (error != null)
+            {
+                lblNameError.Visible = true;
+                lblNameError.Text = error;
+                lblNameError.ForeColor = Color.Red;
+            }
+            else
+            {
+                lblNameError.Text = "";
+            }
+
+        }
+
+        private void txtNRCNumber_TextChanged(object sender, EventArgs e)
+        {
+            string error = Validation.ValidateNRCNumber(txtNRCNumber.Text.Trim());
+
+            if (error != null)
+            {
+                lblNRCNumberError.Visible = true;
+                lblNRCNumberError.Text = error;
+                lblNRCNumberError.ForeColor = Color.Red;
+            }
+            else
+            {
+                lblNRCNumberError.Text = "";
+            }
+        }
+
+
+
+        //private void txtPrimaryPhone_TextChanged_1(object sender, EventArgs e)
+        //{
+
+        //}
+        //private const string phonePlaceholder = "09xxxxxxxxx";
+
+        // When user enters the textbox (focus gained)
+        private void txtPrimaryPhone_Enter(object sender, EventArgs e)
+        {
+            //if (txtPrimaryPhone.Text == phonePlaceholder)
+            //{
+            //    txtPrimaryPhone.Text = "";
+            //    txtPrimaryPhone.ForeColor = Color.Black;
+            //}
+        }
+
+        // When user leaves the textbox (focus lost)
+        private void txtPrimaryPhone_Leave(object sender, EventArgs e)
+        {
+            //if (string.IsNullOrWhiteSpace(txtPrimaryPhone.Text))
+            //{
+            //    txtPrimaryPhone.Text = phonePlaceholder;
+            //    txtPrimaryPhone.ForeColor = Color.Gray;
+            //}
+        }
+
+        private void txtPrimaryPhone_TextChanged(object sender, EventArgs e)
+        {
+            string error = Validation.ValidatePrimaryPhoneNumber(txtPrimaryPhone.Text.Trim());
+
+            if (error != null)
+            {
+                lblPrimaryPhoneError.Visible = true;
+                lblPrimaryPhoneError.Text = error;
+                lblPrimaryPhoneError.ForeColor = Color.Red;
+            }
+            else
+            {
+                lblPrimaryPhoneError.Text = "";
+            }
+
+        }
+
+        private void txtPrimaryPhone_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            //{
+            //    e.Handled = true;
+            //}
+        }
+
+
+
+        private void txtPersonalEmail_TextChanged(object sender, EventArgs e)
+        {
+            string error = Validation.ValidatePersonalEmail(txtPersonalEmail.Text.Trim());
+
+            if (error != null)
+            {
+                lblPersonalEmailError.Visible = true;
+                lblPersonalEmailError.Text = error;
+                lblPersonalEmailError.ForeColor = Color.Red;
+            }
+            else
+            {
+                lblPersonalEmailError.Text = "";
+            }
+        }
+
+        private void txtPassword_TextChanged(object sender, EventArgs e)
+        {
+            string error = Validation.ValidatePassword(txtPassword.Text.Trim());
+
+            if (error != null)
+            {
+                lblPasswordError.Visible = true;
+                lblPasswordError.Text = error;
+                lblPasswordError.ForeColor = Color.Red;
+            }
+            else
+            {
+                lblPasswordError.Text = "";
+            }
+        }
+
+        private void cboPositions_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label19_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void radiobtnMale_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtPermanentAddress_TextChanged(object sender, EventArgs e)
+        {
+            string error = Validation.ValidatePermanentAddress(txtPermanentAddress.Text.Trim());
+
+            if (error != null)
+            {
+                lblPermanentAddressError.Visible = true;
+                lblPermanentAddressError.Text = error;
+                lblPermanentAddressError.ForeColor = Color.Red;
+            }
+            else
+            {
+                lblPermanentAddressError.Text = "";
+            }
+        }
+        private void txtCurrentAddress_TextChanged(object sender, EventArgs e)
+        {
+            //MessageBox.Show("Hello");
+            //string error = Validation.ValidateCurrentAddress(txtCurrentAddress.Text.Trim());
+
+            //if (error != null)
+            //{
+            //    lblCurrentAddressError.Visible = true;
+            //    lblCurrentAddressError.Text = error;
+            //    lblCurrentAddressError.ForeColor = Color.Red;
+            //}
+            //else
+            //{
+            //    lblCurrentAddressError.Text = "";
+            }
+        
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        //private void txtSecondaryPhone_TextChanged(object sender, EventArgs e)
+        //{
+            
+        //    string error = Validation.ValidateSecondaryPhoneNumber(txtSecondaryPhone.Text.Trim());
+
+        //    if (error != null)
+        //    {
+        //        lblSecondaryPhoneNumberError.Visible = true;
+        //        lblSecondaryPhoneNumberError.Text = error;
+        //        lblSecondaryPhoneNumberError.ForeColor = Color.Red;
+        //    }
+        //    else
+        //    {
+        //        lblSecondaryPhoneNumberError.Text = "";
+        //    }
+        //    MessageBox.Show("Error");
+        //}
+
+        private void txtSecondaryPhone_TextChanged_1(object sender, EventArgs e)
+        {
+            string error = Validation.ValidateSecondaryPhoneNumber(txtSecondaryPhone.Text.Trim());
+
+            if (error != null)
+            {
+                lblSecondaryPhoneNumberError.Visible = true;
+                lblSecondaryPhoneNumberError.Text = error;
+                lblSecondaryPhoneNumberError.ForeColor = Color.Red;
+            }
+            else
+            {
+                lblSecondaryPhoneNumberError.Text = "";
+            }
+        }
+
+        private void txtWorkEmail_TextChanged(object sender, EventArgs e)
+        {
+
+            string error = Validation.ValidateWorkEmail(txtWorkEmail.Text.Trim());
+
+            if (error != null)
+            {
+                lblWorkEamilError.Visible = true;
+                lblWorkEamilError.Text = error;
+                lblWorkEamilError.ForeColor = Color.Red;
+            }
+            else
+            {
+                lblWorkEamilError.Text = "";
+            }
+        }
+
+        private void txtCurrentAddress_TextChanged_1(object sender, EventArgs e)
+        {
+            string error = Validation.ValidateCurrentAddress(txtCurrentAddress.Text.Trim());
+            if (error != null)
+            {
+                lblCurrentAddressError.Visible = true;
+                lblCurrentAddressError.Text = error;
+                lblCurrentAddressError.ForeColor = Color.Red;
+            }
+            else
+            {
+                lblCurrentAddressError.Text = "";
+            }
+        }
+
+        private void txtPermanentAddress_TextChanged_1(object sender, EventArgs e)
+        {
+            string error = Validation.ValidatePermanentAddress(txtPermanentAddress.Text.Trim());
+            if (error != null)
+            {
+                lblPermanentAddressError.Visible = true;
+                lblPermanentAddressError.Text = error;
+                lblPermanentAddressError.ForeColor = Color.Red;
+            }
+            else
+            {
+                lblPermanentAddressError.Text = "";
+            }
+        }
+
+        //private void txtEmployeeName_KeyPress(object sender, KeyPressEventArgs e)
+        //{
+        //    if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar) && e.KeyChar != ' ')
+        //    {
+        //        e.Handled = true; // Block the key
+        //    }
+        //}
+
+
+
+        //MessageBox.Show("Hello");
+    }
+
+
+
+
+
+
+
+
+
+    //private void txtEmployeeName(object sender, EventArgs e)
+    //{
+
+    //}
+
+}
+
+
+
+
+
+

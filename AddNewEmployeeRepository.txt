@@ -1,0 +1,125 @@
+using HRMSinternshipProject2025.Model;
+using HRMSinternshipProject2025.Database;
+using Npgsql;
+using System;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+using System.Windows.Forms;
+
+namespace HRMSinternshipProject2025.Repository
+{
+    public class AddNewEmployeeRepository
+    {
+        public bool InsertEmployee(Employee employee)
+        {
+            try
+            {
+                using (var conn = DatabaseHelper.GetConnection())
+                {
+                    conn.Open();
+
+                    //string query = @"
+                    //    INSERT INTO tbl_employee (
+                    //        employee_id, employee_name, gender, date_of_birth, marital_status, nrc, 
+                    //        primary_phone, secondary_phone, personal_email, work_email, 
+                    //        permanent_address, current_address, department_id, position_id, 
+                    //        hired_date, termination_date, password, profile_picture
+                    //    ) VALUES (
+                    //        @employee_id, @employee_name, @gender, @date_of_birth, @marital_status, @nrc, 
+                    //        @primary_phone, @secondary_phone, @personal_email, @work_email, 
+                    //        @permanent_address, @current_address, @department_id, @position_id, 
+                    //        @hired_date, @termination_date, @password, @profile_picture
+                    //    )";
+                    string query = @"
+    INSERT INTO tbl_employee 
+    (employee_id,employee_name, gender, marital_status, nrc, date_of_birth, position_id, department_id,
+     hired_date, termination_date, primary_phone, personal_email, permanent_address, 
+     secondary_phone, work_email, current_address, employment_status, password, profile_picture,qualification)
+    VALUES
+    (@employee_id,@employee_name, @gender, @marital_status, @nrc, @date_of_birth, @position_id, @department_id,
+     @hired_date, @termination_date, @primary_phone, @personal_email, @permanent_address, 
+     @secondary_phone, @work_email, @current_address, @employment_status, @password, @profile_picture,@qualification)";
+                    using (var cmd = new NpgsqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("employee_id", employee.employeeId);
+                        cmd.Parameters.AddWithValue("employee_name", employee.employeeName);
+                        cmd.Parameters.AddWithValue("gender", employee.gender);
+                        cmd.Parameters.AddWithValue("date_of_birth", employee.dateOfBirth);
+                        cmd.Parameters.AddWithValue("marital_status", employee.maritalStatus);
+                        cmd.Parameters.AddWithValue("nrc", employee.nrc);
+                        cmd.Parameters.AddWithValue("primary_phone", employee.primaryPhone);
+                        cmd.Parameters.AddWithValue("secondary_phone", employee.secondaryPhone ?? (object)DBNull.Value);
+                        cmd.Parameters.AddWithValue("personal_email", employee.personalEmail);
+                        cmd.Parameters.AddWithValue("work_email", employee.workEmail ?? (object)DBNull.Value);
+                        cmd.Parameters.AddWithValue("employment_status", employee.employeementStatus);
+                        cmd.Parameters.AddWithValue("permanent_address", employee.permanentAddress);
+                        cmd.Parameters.AddWithValue("current_address", employee.currentAddress);
+                        cmd.Parameters.AddWithValue("department_id", employee.departmentId);
+                        cmd.Parameters.AddWithValue("position_id", employee.positionId);
+                        cmd.Parameters.AddWithValue("hired_date", employee.hiredDate);
+                        cmd.Parameters.AddWithValue("termination_date", employee.terminationDate ?? (object)DBNull.Value);
+                        cmd.Parameters.AddWithValue("password", employee.password);
+                        cmd.Parameters.AddWithValue("profile_picture", employee.profilePicture);
+                        cmd.Parameters.AddWithValue("qualification", employee.qualification);
+
+                        int rowsAffected = cmd.ExecuteNonQuery();
+                        return rowsAffected > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show("Database error: " + ex.Message);
+                return false;
+            }
+
+
+        }
+        public bool IsPersonalEmailExists(string personalEmail)
+        {
+            using (var conn = DatabaseHelper.GetConnection())
+            {
+                conn.Open();
+                string query = "SELECT COUNT(*) FROM tbl_employee WHERE personal_email = @personal_email";
+                using (var cmd = new NpgsqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@personal_email", personalEmail);
+                    var count = (long)cmd.ExecuteScalar();
+                    return count > 0;
+                }
+            }
+        }
+        public bool IsNRCExists(string fullNRC)
+        {
+            using (var conn = DatabaseHelper.GetConnection())
+            {
+                conn.Open();
+                string query = "SELECT COUNT(*) FROM tbl_employee WHERE nrc = @nrc";
+                using (var cmd = new NpgsqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@nrc", fullNRC);
+                    var count = (long)cmd.ExecuteScalar();
+                    return count > 0;
+                }
+            }
+        }
+        public bool IsPrimaryPhoneExists(string primaryPhone)
+        {
+            using (var conn = DatabaseHelper.GetConnection())
+            {
+                conn.Open();
+                string query = "SELECT COUNT(*) FROM tbl_employee WHERE primary_phone = @primary_phone";
+                using (var cmd = new NpgsqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@primary_phone", primaryPhone);
+                    var count = (long)cmd.ExecuteScalar();
+                    return count > 0;
+                }
+            }
+
+        }
+       
+       
+
+
+    }
+}

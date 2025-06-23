@@ -1,0 +1,175 @@
+// ---------------------------
+// Model: Employee.cs
+// ---------------------------
+public class Employee
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public string Email { get; set; }
+    public string Department { get; set; }
+    public string Position { get; set; }
+}
+
+// ---------------------------
+// Repository: AddNewEmployeeRepository.cs
+// ---------------------------
+public class AddNewEmployeeRepository
+{
+    public Employee GetEmployeeById(int id)
+    {
+        // This would normally connect to a database
+        return new Employee
+        {
+            Id = id,
+            Name = "John Doe",
+            Email = "john@example.com",
+            Department = "IT",
+            Position = "Developer"
+        };
+    }
+
+    public void AddEmployee(Employee emp)
+    {
+        // Save to DB logic here
+    }
+}
+
+// ---------------------------
+// Controller: AddNewEmployeeController.cs
+// ---------------------------
+public class AddNewEmployeeController
+{
+    private readonly AddNewEmployeeRepository _repository = new();
+
+    public Employee GetEmployeeById(int id) => _repository.GetEmployeeById(id);
+    public void AddEmployee(Employee emp) => _repository.AddEmployee(emp);
+}
+
+// ---------------------------
+// View/UserControl: AddNewEmployeeControl.cs
+// ---------------------------
+public partial class AddNewEmployeeControl : UserControl
+{
+    private bool _isViewMode;
+    private Employee _employeeData;
+    private readonly AddNewEmployeeController _controller = new();
+
+    public AddNewEmployeeControl()
+    {
+        InitializeComponent();
+    }
+
+    public void SetMode(bool isViewMode, Employee data = null)
+    {
+        _isViewMode = isViewMode;
+        _employeeData = data;
+
+        if (isViewMode && data != null)
+        {
+            LoadEmployeeDataToForm(data);
+            SetControlsReadOnly(true);
+            btnAdd.Visible = false;
+        }
+        else
+        {
+            ClearForm();
+            SetControlsReadOnly(false);
+            btnAdd.Visible = true;
+        }
+    }
+
+    private void LoadEmployeeDataToForm(Employee emp)
+    {
+        txtName.Text = emp.Name;
+        txtEmail.Text = emp.Email;
+        txtDepartment.Text = emp.Department;
+        txtPosition.Text = emp.Position;
+    }
+
+    private void ClearForm()
+    {
+        txtName.Text = "";
+        txtEmail.Text = "";
+        txtDepartment.Text = "";
+        txtPosition.Text = "";
+    }
+
+    private void SetControlsReadOnly(bool isReadOnly)
+    {
+        txtName.ReadOnly = isReadOnly;
+        txtEmail.ReadOnly = isReadOnly;
+        txtDepartment.ReadOnly = isReadOnly;
+        txtPosition.ReadOnly = isReadOnly;
+    }
+
+    private void btnAdd_Click(object sender, EventArgs e)
+    {
+        var emp = new Employee
+        {
+            Name = txtName.Text,
+            Email = txtEmail.Text,
+            Department = txtDepartment.Text,
+            Position = txtPosition.Text
+        };
+
+        _controller.AddEmployee(emp);
+        MessageBox.Show("Employee Added Successfully");
+    }
+}
+
+// ---------------------------
+// Example Parent Form usage:
+// ---------------------------
+public partial class MainForm : Form
+{
+    public MainForm()
+    {
+        InitializeComponent();
+        var control = new AddNewEmployeeControl();
+        this.Controls.Add(control);
+
+        // Example: Add Mode
+        control.SetMode(false); // false for Add mode
+
+        // Example: View Mode
+        // var repo = new AddNewEmployeeRepository();
+        // Employee emp = repo.GetEmployeeById(1);
+        // control.SetMode(true, emp); // true for View mode
+    }
+}
+
+
+
+//Split NRC Number into form
+private void LoadNRCToForm(string fullNRC)
+{
+    try
+    {
+        // Example NRC: "1/TATHANa(Naing)238219"
+
+        // Step 1: Split at "/"
+        var parts = fullNRC.Split('/');
+        if (parts.Length < 2) return;
+
+        string region = parts[0] + "/"; // "1/"
+        string remaining = parts[1];    // "TATHANa(Naing)238219"
+
+        // Step 2: Extract township, code, and number
+        int openParen = remaining.IndexOf('(');
+        int closeParen = remaining.IndexOf(')');
+
+        string township = remaining.Substring(0, openParen);                    // "TATHANa"
+        string code = remaining.Substring(openParen, closeParen - openParen + 1); // "(Naing)"
+        string nrcNumber = remaining.Substring(closeParen + 1);                // "238219"
+
+        // Set to your controls
+        cboRegion.SelectedItem = region;      // ComboBox with "1/", "2/", etc.
+        cboTownship.SelectedItem = township;  // ComboBox with "TATHANA", "KAMAYA", etc.
+        txtNRCNumber.Text = nrcNumber;        // TextBox with number
+    }
+    catch
+    {
+        MessageBox.Show("Invalid NRC format");
+    }
+}
+
