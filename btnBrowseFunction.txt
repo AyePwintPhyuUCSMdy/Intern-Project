@@ -1,0 +1,110 @@
+ //private void btnBrowse_Click_1(object sender, EventArgs e)
+ //{
+ //    using (OpenFileDialog ofd = new OpenFileDialog())
+ //    {
+ //        ofd.Filter = "Image Files (*.jpg;*.png;*.jpeg)|*.jpg;*.png;*.jpeg";
+ //        if (ofd.ShowDialog() == DialogResult.OK)
+ //        {
+ //            pictureboxEmployeeProfileImage.Image = Image.FromFile(ofd.FileName);
+ //            pictureboxEmployeeProfileImage.Tag = ofd.FileName;
+ //        }
+ //    }
+ //}
+
+
+
+
+.......................................................................................................
+  //private void btnBrowse_Click_1(object sender, EventArgs e)
+  //{
+  //    using (OpenFileDialog ofd = new OpenFileDialog())
+  //    {
+  //        ofd.Title = "Select Employee Profile Image";
+  //        ofd.Filter = "Image Files (*.jpg;*.png;*.jpeg)|*.jpg;*.png;*.jpeg";
+
+  //        if (ofd.ShowDialog() == DialogResult.OK)
+  //        {
+  //            string filePath = ofd.FileName;
+  //            string extension = Path.GetExtension(filePath).ToLower();
+  //            if (extension != ".jpg" && extension != ".jpeg" && extension != ".png")
+  //            {
+  //                MessageBox.Show("Please select a valid image file (JPG, JPEG, PNG).", "Invalid File", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+  //                return;
+  //            }
+  //            long fileSize = new FileInfo(filePath).Length;
+  //            if (fileSize > 1 * 1024 * 1024)
+  //            {
+  //                MessageBox.Show("Image size should be less than 1MB.", "File Too Large", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+  //                return;
+  //            }
+  //            try
+  //            {
+  //                using (var img = Image.FromFile(filePath))
+  //                {
+  //                    if (img.Width > 2000 || img.Height > 2000)
+  //                    {
+  //                        MessageBox.Show("Image dimensions are too large. Max allowed is 2000x2000.", "Too Large", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+  //                        return;
+  //                    }
+  //                    pictureboxEmployeeProfileImage.Image = new Bitmap(img);
+  //                    pictureboxEmployeeProfileImage.Tag = filePath;
+  //                }
+  //            }
+  //            catch
+  //            {
+  //                MessageBox.Show("The selected file is not a valid image.", "Invalid Image", MessageBoxButtons.OK, MessageBoxIcon.Error);
+  //            }
+  //        }
+  //    }
+  //}
+
+  //private void btnBrowse_Click_1(object sender, EventArgs e)
+  //{
+  //    using (OpenFileDialog ofd = new OpenFileDialog())
+  //    {
+  //        ofd.Title = "Select Employee Profile Image";
+  //        ofd.Filter = "Image Files (*.jpg;*.png;*.jpeg)|*.jpg;*.png;*.jpeg";
+
+  //        if (ofd.ShowDialog() == DialogResult.OK)
+  //        {
+  //            string filePath = ofd.FileName;
+  //            string extension = Path.GetExtension(filePath).ToLower();
+  //            if (extension != ".jpg" && extension != ".jpeg" && extension != ".png")
+  //            {
+  //                MessageBox.Show("Please select a valid image file (JPG, JPEG, PNG).", "Invalid File", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+  //                return;
+  //            }
+  //            long fileSize = new FileInfo(filePath).Length;
+  //            if (fileSize > 1 * 1024 * 1024)
+  //            {
+  //                MessageBox.Show("Image size should be less than 1MB.", "File Too Large", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+  //                return;
+  //            }
+  //            try
+  //            {
+  //                using (var img = Image.FromFile(filePath))
+  //                {
+  //                    if (img.Width > 2000 || img.Height > 2000)
+  //                    {
+  //                        MessageBox.Show("Image dimensions are too large. Max allowed is 2000x2000.", "Too Large", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+  //                        return;
+  //                    }
+  //                    pictureboxEmployeeProfileImage.Image = new Bitmap(img);
+  //                    pictureboxEmployeeProfileImage.Tag = filePath;
+  //                }
+  //            }
+  //            catch
+  //            {
+  //                MessageBox.Show("The selected file is not a valid image.", "Invalid Image", MessageBoxButtons.OK, MessageBoxIcon.Error);
+  //            }
+  //        }
+  //    }
+  //}
+
+b$2PXtN^TTIt
+YUSI0ukJ*
+@@K5ZyEsZ
+x5igbsqH(Amy)
+1PfcFbMAav(maymiee)
+
+amy250075@gmail.com
